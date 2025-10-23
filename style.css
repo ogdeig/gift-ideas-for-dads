@@ -1,57 +1,95 @@
-/* === Gift Ideas for Dads – Article Theme === */
-:root{
-  --bg:#0b0c10;
-  --panel:#121318;
-  --ink:#e9eef5;
-  --muted:#b8c4d6;
-  --brand1:#ff0050; /* ChatTok pink */
-  --brand2:#00f2ea; /* ChatTok teal */
-  --accent:#f2c94c; /* warm accent for gifts */
-  --ring: rgba(255,0,80,.25);
+/* === Gift Ideas for Dads – Article Theme (NAMESPACED) === */
+/* Apply this page's CSS only when a parent element has .theme-gifts */
+.theme-gifts{
+  /* local color tokens for this theme only */
+  --gifts-bg:#0b0c10;
+  --gifts-panel:#121318;
+  --gifts-ink:#e9eef5;
+  --gifts-muted:#b8c4d6;
+  --gifts-brand1:#ff0050; /* ChatTok pink */
+  --gifts-brand2:#00f2ea; /* ChatTok teal */
+  --gifts-accent:#f2c94c; /* warm accent for gifts */
+  --gifts-ring: rgba(255,0,80,.25);
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-img{max-width:100%;height:auto;border-radius:16px}
+/* Base (scoped) */
+.theme-gifts{background:var(--gifts-bg); color:var(--gifts-ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+.theme-gifts *{box-sizing:border-box}
+.theme-gifts img{max-width:100%; height:auto; border-radius:16px}
 
-.wrapper{max-width:1100px;margin:0 auto;padding:0 20px}
-.site-header{position:sticky;top:0;backdrop-filter:saturate(1.1) blur(8px);background:rgba(11,12,16,.7);border-bottom:1px solid #1c1f27;z-index:10}
-.site-header .wrapper{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font-weight:800;letter-spacing:.2px;color:var(--ink);text-decoration:none}
-.top-nav a{color:var(--muted);text-decoration:none;margin-left:18px}
-.top-nav a:hover{color:var(--ink)}
+/* Layout */
+.theme-gifts .wrapper{max-width:1100px; margin:0 auto; padding:0 20px}
 
-.content{padding:32px 0 80px}
-.card{background:var(--panel);border:1px solid #1c1f27;border-radius:20px;padding:24px;margin:18px 0;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.lead{color:var(--muted);font-size:1.05rem}
-.disclosure{background:rgba(255,0,80,.05);border-left:3px solid var(--brand1);padding:12px;border-radius:12px}
+/* Header */
+.theme-gifts .site-header{
+  position:sticky; top:0; backdrop-filter:saturate(1.1) blur(8px);
+  background:rgba(11,12,16,.7); border-bottom:1px solid #1c1f27; z-index:10
+}
+.theme-gifts .site-header .wrapper{display:flex; align-items:center; justify-content:space-between; height:64px}
+.theme-gifts .brand{font-weight:800; letter-spacing:.2px; color:var(--gifts-ink); text-decoration:none}
+.theme-gifts .top-nav a{color:var(--gifts-muted); text-decoration:none; margin-left:18px}
+.theme-gifts .top-nav a:hover{color:var(--gifts-ink)}
 
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
-.hero .cta.primary{display:inline-block;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#000;font-weight:800;padding:14px 18px;border-radius:14px;text-decoration:none;margin-top:10px}
-.hero-media img{box-shadow:0 12px 36px rgba(0,0,0,.35)}
+/* Content */
+.theme-gifts .content{padding:32px 0 80px}
 
-.toc h2{margin-top:0}
-.toc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0;padding:0;list-style:decimal inside}
-.toc-list a{color:var(--ink);text-decoration:none}
-.toc-list a:hover{color:var(--brand2)}
+/* Restore big headings on this page so they match your other LPs */
+.theme-gifts h1{font-weight:900; line-height:1.1; margin:.2em 0 .4em; font-size:clamp(2.2rem, 1.6rem + 2.8vw, 3.2rem)}
+.theme-gifts h2{font-weight:800; line-height:1.15; margin:.8em 0 .4em; font-size:clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem)}
+.theme-gifts h3{font-weight:800; margin:1em 0 .4em; font-size:1.15rem}
+.theme-gifts .lead{color:var(--gifts-muted); font-size:1.05rem}
 
-.product-section{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
-.product-section .product-copy h3{margin-top:0}
-.product-section .pros{color:var(--muted)}
-.cta{display:inline-block;border:2px solid var(--brand2);padding:10px 14px;border-radius:14px;text-decoration:none;color:var(--ink);font-weight:700;transition:.2s}
-.cta:hover{transform:translateY(-1px);box-shadow:0 10px 20px var(--ring)}
-.placeholder{color:var(--accent)}
+/* Cards */
+.theme-gifts .card{
+  background:var(--gifts-panel); border:1px solid #1c1f27; border-radius:20px;
+  padding:24px; margin:18px 0; box-shadow:0 10px 30px rgba(0,0,0,.25)
+}
+.theme-gifts .disclosure{background:rgba(255,0,80,.05); border-left:3px solid var(--gifts-brand1); padding:12px; border-radius:12px}
 
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.faq details{background:#0e1016;border:1px solid #1b1f29;border-radius:14px;padding:12px;margin:10px 0}
-.faq summary{cursor:pointer;font-weight:700}
+/* Hero */
+.theme-gifts .hero{display:grid; grid-template-columns:1.2fr .8fr; gap:24px; align-items:center}
+.theme-gifts .hero .cta.primary{
+  display:inline-block; background:linear-gradient(90deg,var(--gifts-brand1),var(--gifts-brand2));
+  color:#000; font-weight:800; padding:14px 18px; border-radius:14px; text-decoration:none; margin-top:10px
+}
+.theme-gifts .hero-media img{box-shadow:0 12px 36px rgba(0,0,0,.35)}
 
-.site-footer{border-top:1px solid #1c1f27;padding:32px 0;color:var(--muted)}
-.site-footer a{color:var(--muted)}
-.site-footer a:hover{color:var(--ink)}
+/* TOC */
+.theme-gifts .toc h2{margin-top:0}
+.theme-gifts .toc-list{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px; margin:0; padding:0; list-style:decimal inside
+}
+.theme-gifts .toc-list a{color:var(--gifts-ink); text-decoration:none}
+.theme-gifts .toc-list a:hover{color:var(--gifts-brand2)}
 
+/* Product sections */
+.theme-gifts .product-section{display:grid; grid-template-columns:1.2fr 1fr; gap:24px; align-items:center}
+.theme-gifts .product-section .product-copy h3{margin-top:0}
+.theme-gifts .product-section .pros{color:var(--gifts-muted)}
+.theme-gifts .cta{
+  display:inline-block; border:2px solid var(--gifts-brand2);
+  padding:10px 14px; border-radius:14px; text-decoration:none; color:var(--gifts-ink);
+  font-weight:700; transition:.2s
+}
+.theme-gifts .cta:hover{transform:translateY(-1px); box-shadow:0 10px 20px var(--gifts-ring)}
+.theme-gifts .placeholder{color:var(--gifts-accent)}
+
+/* Grid helpers */
+.theme-gifts .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+
+/* FAQ */
+.theme-gifts .faq details{background:#0e1016; border:1px solid #1b1f29; border-radius:14px; padding:12px; margin:10px 0}
+.theme-gifts .faq summary{cursor:pointer; font-weight:700}
+
+/* Footer */
+.theme-gifts .site-footer{border-top:1px solid #1c1f27; padding:32px 0; color:var(--gifts-muted)}
+.theme-gifts .site-footer a{color:var(--gifts-muted)}
+.theme-gifts .site-footer a:hover{color:var(--gifts-ink)}
+
+/* Responsive */
 @media (max-width: 860px){
-  .hero{grid-template-columns:1fr}
-  .product-section{grid-template-columns:1fr}
-  .grid-2{grid-template-columns:1fr}
+  .theme-gifts .hero{grid-template-columns:1fr}
+  .theme-gifts .product-section{grid-template-columns:1fr}
+  .theme-gifts .grid-2{grid-template-columns:1fr}
 }
