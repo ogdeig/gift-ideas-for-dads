@@ -1,57 +1,256 @@
-/* Sitewide-safe base so fonts never go tiny */
-html{font-size:16px}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial; line-height:1.6}
+/* ==========================================================================
+   Amazon Landing Pages – Unified Styles (v5)
+   - Fixes tiny-font issue (hard base size + fluid scale)
+   - 10% side gutters across pages
+   - Components: hero, thumb grid (TOC), product sections, pros, badges,
+     CTA buttons, FAQ, cards/panels, footer, accessibility
+   Brand: #ff0050 (pink), #00f2ea (cyan)
+   ========================================================================== */
 
-/* Global heading sizes */
-h1{font-weight:900; line-height:1.1; margin:.2em 0 .4em; font-size:clamp(2.2rem, 1.6rem + 2.8vw, 3.2rem)}
-h2{font-weight:800; line-height:1.15; margin:.8em 0 .4em; font-size:clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem)}
-h3{font-weight:800; margin:1em 0 .4em; font-size:1.15rem}
-
-/* Your original theme (un-namespaced) — keep only if this is truly sitewide */
+/* --- Design Tokens ------------------------------------------------------- */
 :root{
+  /* Colors */
   --bg:#0b0c10;
   --panel:#121318;
   --ink:#e9eef5;
   --muted:#b8c4d6;
-  --brand1:#ff0050;
-  --brand2:#00f2ea;
-  --accent:#f2c94c;
-  --ring: rgba(255,0,80,.25);
+  --brand1:#ff0050;   /* ChatTok pink */
+  --brand2:#00f2ea;   /* ChatTok cyan */
+  --accent:#f2c94c;   /* warm accent for gift highlights */
+  --ring:rgba(0,242,234,.25);
+  --border:#1c1f27;
+  --shadow:0 10px 30px rgba(0,0,0,.25);
+
+  /* Type scale (fluid with safe fallbacks) */
+  --fs-xs:clamp(.82rem, .72rem + .3vw, .9rem);
+  --fs-sm:clamp(.94rem, .86rem + .35vw, 1.05rem);
+  --fs-md:clamp(1rem, .96rem + .45vw, 1.15rem);
+  --fs-lg:clamp(1.25rem, 1.05rem + 1.2vw, 1.7rem);
+  --fs-xl:clamp(2.2rem, 1.6rem + 2.8vw, 3.2rem);
+  --fs-xxl:clamp(2.6rem, 2rem + 3.5vw, 4.4rem);
+
+  /* Radii */
+  --r-md:14px;
+  --r-lg:20px;
+  --r-full:999px;
 }
+
+/* --- Base / Reset -------------------------------------------------------- */
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-img{max-width:100%;height:auto;border-radius:16px}
-.wrapper{max-width:1100px;margin:0 auto;padding:0 20px}
-.site-header{position:sticky;top:0;backdrop-filter:saturate(1.1) blur(8px);background:rgba(11,12,16,.7);border-bottom:1px solid #1c1f27;z-index:10}
-.site-header .wrapper{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font-weight:800;letter-spacing:.2px;color:var(--ink);text-decoration:none}
-.top-nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+html,body{height:100%}
+html{font-size:16px} /* hard base to prevent “mini” text if vars ever fail */
+
+body{
+  margin:0;
+  font: var(--fs-md)/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+img{max-width:100%;height:auto;border-radius:var(--r-md)}
+a{color:var(--brand2);text-decoration:none}
+a:hover{color:#fff}
+p{margin:.6em 0}
+ul{margin:.6em 0 .6em 1.1em}
+
+/* --- Global Headings ----------------------------------------------------- */
+h1,h2,h3{line-height:1.15;margin:0 0 .6em}
+h1{font-weight:900;font-size:var(--fs-xl)}
+h2{font-weight:800;font-size:var(--fs-lg)}
+h3{font-weight:800;font-size:1.15rem}
+
+/* --- Global Layout (10% side gutters) ----------------------------------- */
+.wrapper,
+.container,
+main.content{
+  width:100%;
+  margin:0 auto;
+  padding-left:10vw;
+  padding-right:10vw;
+}
+.content{padding:3.5rem 0 2rem}
+
+@media (max-width:480px){
+  .wrapper,.container,main.content{padding-left:6vw;padding-right:6vw}
+  .content{padding:2.2rem 0 2rem}
+}
+
+/* --- Header / Top Nav (optional) ---------------------------------------- */
+.site-header{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter:saturate(1.1) blur(8px);
+  background:rgba(11,12,16,.7);
+  border-bottom:1px solid var(--border);
+}
+.site-header .wrapper{
+  display:flex; align-items:center; justify-content:space-between; height:64px
+}
+.brand{font-weight:800; letter-spacing:.2px; color:var(--ink)}
+.top-nav a{color:var(--muted); margin-left:18px}
 .top-nav a:hover{color:var(--ink)}
-.content{padding:32px 0 80px}
-.card{background:var(--panel);border:1px solid #1c1f27;border-radius:20px;padding:24px;margin:18px 0;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.lead{color:var(--muted);font-size:1.05rem}
-.disclosure{background:rgba(255,0,80,.05);border-left:3px solid var(--brand1);padding:12px;border-radius:12px}
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
-.hero .cta.primary{display:inline-block;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#000;font-weight:800;padding:14px 18px;border-radius:14px;text-decoration:none;margin-top:10px}
+
+/* --- Cards / Panels ------------------------------------------------------ */
+.card,
+.panel{
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:clamp(16px, 2.4vw, 24px);
+  box-shadow:var(--shadow);
+  margin:18px 0;
+}
+.panel.highlight{
+  border-color:rgba(0,242,234,.25);
+  box-shadow:0 12px 45px rgba(0,242,234,.08)
+}
+
+/* --- Hero --------------------------------------------------------------- */
+.hero{
+  display:grid; grid-template-columns:1.2fr .8fr;
+  gap: clamp(16px, 2.5vw, 28px);
+  align-items:center; min-height:64vh;
+}
+.hero .brand-mark{width:42px;height:42px;border-radius:10px;margin-right:.55rem;vertical-align:middle}
+.hero h1{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:var(--fs-xxl)}
+.lead{color:var(--muted); font-size:var(--fs-md)}
 .hero-media img{box-shadow:0 12px 36px rgba(0,0,0,.35)}
-.toc h2{margin-top:0}
-.toc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0;padding:0;list-style:decimal inside}
-.toc-list a{color:var(--ink);text-decoration:none}
-.toc-list a:hover{color:var(--brand2)}
-.product-section{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center}
-.product-section .product-copy h3{margin-top:0}
-.product-section .pros{color:var(--muted)}
-.cta{display:inline-block;border:2px solid var(--brand2);padding:10px 14px;border-radius:14px;text-decoration:none;color:var(--ink);font-weight:700;transition:.2s}
+
+.hero .cta.primary{
+  display:inline-block;
+  background:linear-gradient(90deg,var(--brand1),var(--brand2));
+  color:#000; font-weight:900; border:none;
+  padding:12px 18px; border-radius:14px; margin-top:10px;
+  box-shadow:0 10px 22px rgba(0,0,0,.25);
+}
+
+/* --- Buttons / CTAs ----------------------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.85rem 1.1rem; border-radius:var(--r-full);
+  font-weight:800; border:1px solid transparent;
+  transition:transform .2s ease, filter .2s ease, box-shadow .2s ease;
+  box-shadow:var(--shadow);
+}
+.btn-primary{background:var(--brand2); color:#061013}
+.btn-primary:hover{transform:translateY(-1px); filter:saturate(1.1)}
+.btn-ghost{background:transparent; border-color:var(--border); color:var(--ink)}
+.btn-ghost:hover{border-color:var(--brand1); color:var(--brand1)}
+.btn-accent{background:linear-gradient(90deg,var(--brand1),var(--brand2)); color:#0b0b0b}
+.btn-accent:hover{filter:saturate(1.1); transform:translateY(-1px)}
+
+.cta{display:inline-block;border:2px solid var(--brand2);padding:10px 14px;border-radius:14px;color:var(--ink);font-weight:800}
 .cta:hover{transform:translateY(-1px);box-shadow:0 10px 20px var(--ring)}
-.placeholder{color:var(--accent)}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.faq details{background:#0e1016;border:1px solid #1b1f29;border-radius:14px;padding:12px;margin:10px 0}
-.faq summary{cursor:pointer;font-weight:700}
-.site-footer{border-top:1px solid #1c1f27;padding:32px 0;color:var(--muted)}
-.site-footer a{color:var(--muted)}
-.site-footer a:hover{color:var(--ink)}
-@media (max-width: 860px){
+
+/* --- Thumbnail TOC / Grid of links ------------------------------------- */
+.toc h2{margin-bottom:.4rem}
+.thumb-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem; list-style:none; padding:0; margin:.75rem 0 0;
+}
+.thumb-grid li{background:var(--panel); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+.thumb-grid a{display:block; color:var(--ink); text-decoration:none}
+.thumb-grid a:hover{filter:saturate(1.05)}
+.thumb-grid img{display:block; width:100%; height:auto; border-radius:0}
+.thumb-grid span{display:block; padding:.65rem .8rem; font-weight:700}
+
+/* --- Product Sections --------------------------------------------------- */
+.product-section{
+  display:grid; grid-template-columns:1.2fr 1fr;
+  gap: clamp(18px, 2.8vw, 28px); align-items:center;
+  margin:22px 0;
+}
+.product-section .product-copy h3{margin-top:0}
+.product-section .pros{color:var(--muted); font-size:var(--fs-sm)}
+.product-section .price{font-weight:900; font-size:1.25rem}
+.product-section .badge{
+  display:inline-block; background:rgba(0,242,234,.08);
+  border:1px solid rgba(0,242,234,.35); color:#bffcff;
+  padding:.25rem .55rem; border-radius:8px; font-size:.78rem; font-weight:800;
+  margin-left:.45rem; vertical-align:middle;
+}
+.product-section .buy{
+  display:inline-flex; align-items:center; gap:.5rem;
+  margin-top:.55rem; font-weight:900;
+}
+
+/* Reverse layout helper (image right/left swap) */
+.product-section.reverse{grid-template-columns:1fr 1.2fr}
+.product-section.reverse .product-media{order:2}
+.product-section.reverse .product-copy{order:1}
+
+/* Pros list */
+.pros-list{list-style:none; padding-left:0; margin:.3rem 0}
+.pros-list li{margin:.25rem 0; display:flex; align-items:flex-start; gap:.5rem}
+.pros-list li::before{
+  content:"✔"; color:var(--brand2); font-weight:900; line-height:1.2; margin-top:.05rem
+}
+
+/* --- General Grids ------------------------------------------------------ */
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+@media (max-width:860px){
   .hero{grid-template-columns:1fr}
   .product-section{grid-template-columns:1fr}
+  .product-section.reverse{grid-template-columns:1fr}
   .grid-2{grid-template-columns:1fr}
 }
+
+/* --- FAQ ---------------------------------------------------------------- */
+.faq details{
+  background:#0e1016; border:1px solid #1b1f29;
+  border-radius:14px; padding:12px; margin:10px 0
+}
+.faq summary{cursor:pointer; font-weight:800}
+
+/* --- Utility bits used on your pages ----------------------------------- */
+.disclosure{
+  background:rgba(255,0,80,.06);
+  border-left:3px solid var(--brand1);
+  padding:12px; border-radius:12px; color:var(--muted);
+}
+.placeholder{color:var(--accent)}
+.trust{display:flex; gap:1rem; justify-content:center; list-style:none; padding:0; margin:0}
+.trust li{font-size:.95rem; color:#cdd6d2; opacity:.9}
+
+/* Steps (some pages use this pattern) */
+.steps{counter-reset:step; list-style:none; padding:0; margin:0}
+.steps li{
+  display:grid; grid-template-columns:auto 1fr; align-items:start; gap:.8rem;
+  padding:.6rem 0; border-bottom:1px dashed var(--border)
+}
+.steps li:last-child{border-bottom:0}
+.steps li::before{
+  counter-increment:step; content:counter(step);
+  display:grid; place-items:center; width:34px; height:34px; border-radius:999px;
+  background:radial-gradient(circle at 30% 30%, var(--brand1), var(--brand2));
+  color:#07130a; font-weight:800; box-shadow:0 6px 20px rgba(0,242,234,.2)
+}
+
+/* --- Footer ------------------------------------------------------------- */
+.site-footer{border-top:1px solid var(--border); margin-top:3rem; padding:32px 0; color:var(--muted)}
+.site-footer a{color:var(--muted)}
+.site-footer a:hover{color:var(--ink)}
+.footer-grid{display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap}
+
+/* --- Accessibility ------------------------------------------------------ */
+a:focus,.btn:focus,.cta:focus{
+  outline:3px solid rgba(0,242,234,.5);
+  outline-offset:2px; border-radius:10px
+}
+:focus-visible{outline:3px solid var(--brand2); outline-offset:2px; border-radius:10px}
+
+/* --- Reduced Motion ----------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important}
+}
+
+/* --- Optional Light Mode (commented on purpose; ready for a future toggle)
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#ffffff; --panel:#f7f7f9; --ink:#0b0c10; --muted:#606977;
+    --border:#e4e6eb; --shadow:0 10px 30px rgba(0,0,0,.08);
+  }
+}
+-------------------------------------------------------------------------- */
